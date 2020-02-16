@@ -1,0 +1,38 @@
+senzo version __VERSION__
+=====================================
+
+Usage: senzo command [options]
+
+Commands:
+pack                      Bundle resolvers & schema with GraphQL Server
+deploy   
+                   Bundle & Deploy bundled GraphQL server to FaaS
+                            provider. Requires provider specific deployment 
+                            framework to be installed.
+dev                         Start lightweight local development server
+
+Basic options:
+-v, --version               Show version number
+-h, --help                  Show this help message
+-c, --config                Use this config file (if argument is used but value
+                            is unspecified, defaults to faasql.config.js)
+-p, --providers             Specify which providers to target for bundling and
+                            deployment
+-r, --resolvers             Specify the location of the schema function to bundle
+-s, --schema                Specify the location of the schema file to bundle
+-b, --bundle                Specific to the deploy command. If specified it will 
+                            create a bundle as part of the deployment command,
+                            alternatively it will use an already created bundle.
+-l, --log                   Specific to the dev command. Set the log level of the 
+                            dev server. Options [ 'none', 'verbose' ]. Default 'none'.  
+
+Examples:
+
+# use settings in config file to bundle function
+senzo pack -c
+
+# specify a config file by relative location to bundle function
+senzo pack -c ./src/senzo.yml
+
+# use settings in config file, override provider settings with --provider flag
+senzo init <provider>
