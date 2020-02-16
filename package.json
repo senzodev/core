@@ -1,0 +1,53 @@
+{
+  "name": "@senzo/core",
+  "version": "0.0.1",
+  "description": "Core Package for the Senzo System",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:clean && npm run build:js",
+    "build:clean": "rm -rf lib",
+    "build:js": "babel src",
+    "prepare": "npm run build",
+    "test": "ava"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senzodev/core.git"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Ant Stanley",
+    "url": "https://github.com/antstanley/"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/senzodev/core/issues"
+  },
+  "homepage": "https://github.com/senzodev/core#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "ava": "^3.3.0",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "esm": "^3.2.25"
+  },
+  "dependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-syntax-import-meta": "^7.8.3",
+    "@babel/plugin-transform-destructuring": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "archiver": "^3.1.1",
+    "chalk": "^3.0.0",
+    "minimist": "^1.2.0",
+    "rollup": "^1.31.1",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-cleanup": "^3.1.1",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "yaml": "^1.7.2"
+  }
+}
