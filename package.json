@@ -16,7 +16,7 @@
   "scripts": {
     "build": "npm run build:clean && npm run build:js",
     "build:clean": "rm -rf lib",
-    "build:js": "babel src",
+    "build:js": "babel src -d lib",
     "prepare": "npm run build",
     "test": "ava"
   },
