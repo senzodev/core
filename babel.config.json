@@ -9,9 +9,8 @@
             "@babel/preset-env",
             {
                 "targets": {
-                    "node": "10"
-                },
-                "modules": "commonjs"
+                    "node": "12"
+                }
             }
         ]
     ]

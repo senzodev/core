@@ -1,41 +1,25 @@
-import fs from 'fs'
-import { join, basename } from 'path'
+import chalk from 'chalk'
 
-const copyFileSync = (source, target) => {
-  let targetFile = target;
+const logger = (level, message) => {
+  const nowDateTime = new Date()
+  const nowString = nowDateTime.toISOString().substr(11, 12)
 
-  // if target is a directory a new file with the same name will be created
-  if (fs.existsSync(target)) {
-    if (fs.lstatSync(target).isDirectory()) {
-      targetFile = join(target, basename(source));
-    }
-  }
-
-  fs.writeFileSync(targetFile, fs.readFileSync(source));
-};
-
-const copyFolderRecursiveSync = (source, target) => {
-  let files = [];
-
-  // check if folder needs to be created or integrated
-  const targetFolder = target;
-  if (!fs.existsSync(targetFolder)) {
-    fs.mkdirSync(targetFolder);
-  }
-
-  // copy
-  if (fs.lstatSync(source).isDirectory()) {
-    files = fs.readdirSync(source);
-    files.forEach(function(file) {
-      const curSource = join(source, file);
-      if (fs.lstatSync(curSource).isDirectory()) {
-        const newTarget = join(targetFolder, file);
-        copyFolderRecursiveSync(curSource, newTarget);
-      } else {
-        copyFileSync(curSource, targetFolder);
-      }
-    })
+  switch (level) {
+    case 'info':
+      console.log(`${chalk.gray(`[${nowString}]`)} ${chalk.green('\u2713')} ${chalk.cyan(message)}`)
+      break
+    case 'action':
+      console.log(`${chalk.gray(`[${nowString}]`)} ${chalk.green('\u2713')} ${chalk.cyan(message)}`)
+      break
+    case 'warn':
+      console.log(`${chalk.gray(`[${nowString}]`)} ${chalk.yellow(message)}`)
+      break
+    case 'error':
+      console.log(`${chalk.gray(`[${nowString}]`)} ${chalk.red('\u274C')} ${chalk.cyan(message)}`)
+      break
+    default:
+      console.log(`${chalk.gray(`[${nowString}]`)} ${chalk.blue(message)}`)
   }
 }
 
-export default copyFolderRecursiveSync
+export default logger
