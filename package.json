@@ -6,7 +6,10 @@
   "bin": {
     "senzo": "./bin/senzo.js"
   },
-  "files": ["src", "bin"],
+  "files": [
+    "src",
+    "bin"
+  ],
   "engines": {
     "node": ">=13.0"
   },
@@ -33,7 +36,6 @@
   },
   "homepage": "https://github.com/senzodev/core#readme",
   "devDependencies": {
-    "@babel/cli": "^7.8.4",
     "ava": "^3.6.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
