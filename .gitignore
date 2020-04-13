@@ -109,3 +109,4 @@ dist
 # Added by Ant
 /dist
 .DS_Store
+package-lock.json
