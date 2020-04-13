@@ -112,3 +112,4 @@ dist
 package-lock.json
 .vscode/
 lib/
+senzo.yml

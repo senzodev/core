@@ -6,9 +6,9 @@
   "bin": {
     "senzo": "./bin/senzo.js"
   },
-  "files": ["lib", "bin"],
+  "files": ["src", "bin"],
   "engines": {
-    "node": ">=10.0"
+    "node": ">=13.0"
   },
   "type": "module",
   "scripts": {

@@ -22,5 +22,5 @@ if (command.help || (process.argv.length <= 2 && process.stdin.isTTY)) {
 } else if (command.version) {
   console.log(`senzo v${version}`)
 } else {
-  cli.default(command)
+  cli(command)
 }

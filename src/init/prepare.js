@@ -4,34 +4,33 @@ import { join } from 'path'
 import { validateConfig } from '../validation/index.js'
 import YAML from 'yaml'
 
-const prepare = ({ options, configFile }) => {
+const prepare = async ({ options, configFile }) => {
   try {
     const configValid = validateConfig(options)
     if (configValid) {
-      const { functions } = options
+      const { source } = options
 
-      const functionsDir = join(process.cwd(), functions)
-      if (!existsSync(functionsDir)) {
-        mkdirSync(functionsDir, { recursive: true })
-        logger('info', `init: Functions directory created`)
+      const sourceDir = join(process.cwd(), source)
+      if (!existsSync(sourceDir)) {
+        mkdirSync(sourceDir, { recursive: true })
+        logger('info', `init: source directory created`)
       } else {
-        logger('warning', `init: Functions directory exists`)
+        logger('warning', `init: source directory exists`)
       }
 
       const fullConfig = join(process.cwd(), configFile)
       if (!existsSync(fullConfig)) {
         writeFileSync(fullConfig, YAML.stringify(options))
+        logger('info', `Project config and scaffolding created.`)
       } else {
-        logger('error', `${fullConfig} already exists.`)
+        logger('warning', `${fullConfig} already exists. Not created.`)
       }
-
-      logger('info', `Project config and scaffolding created.`)
       return true
     } else {
       return false
     }
   } catch (error) {
-    logger('error', `init project error: ${error}`)
+    logger('error', `prepare: init project error - ${error}`)
     return false
   }
 }
