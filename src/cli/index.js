@@ -1,0 +1,46 @@
+import { logger } from '../utils/index.js'
+import config from './config.js'
+import pack from '../pack/index.js'
+import init from '../init/index.js'
+
+const cli = async args => {
+  try {
+    const validCommands = ['pack', 'init']
+    const command = args._[0] || null
+
+    if (command) {
+      if (validCommands.includes(command)) {
+        if (command === 'init') {
+          init()
+        } else {
+          const configFile = args.config || args.c || '.senzorc.json'
+          const resolvers = args.resolvers || args.r || false
+          const schema = args.schema || args.s || false
+          const functions = args.functions || args.p || false
+
+          const options = await config(configFile, resolvers, schema, functions)
+
+          switch (command) {
+            case 'bundle':
+              build(options)
+              break
+            case 'dev':
+              http(options)
+              break
+            case 'deploy':
+              logger('info', 'Deployment not supported at this time')
+              break
+          }
+        }
+      } else {
+        logger('warn', `command: "${command}" not recognised`)
+      }
+    } else {
+      logger('warn', `No command specified`)
+    }
+  } catch (error) {
+    logger('error', `Error: ${error}`)
+  }
+}
+
+export default cli

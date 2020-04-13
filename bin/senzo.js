@@ -1,17 +1,26 @@
 #!/usr/bin/env node
-"use strict";
+'use strict'
 
-const minimist = require("minimist");
-const cli = require("../lib/cli");
-const pkg = require("../package.json");
-const version = pkg.version;
+import minimist from 'minimist'
+import cli from '../src/cli/index.js'
+import { readFileSync } from 'fs'
+import { join, dirname } from 'path'
+import { fileURLToPath } from 'url'
 
-const command = minimist(process.argv.slice(2));
+const currPathname = new URL(import.meta.url)
+const currPath = fileURLToPath(currPathname)
+const currDir = dirname(currPath)
+
+const pkgFile = readFileSync(join(currDir, '../package.json'), 'utf8')
+
+const { version } = JSON.parse(pkgFile)
+
+const command = minimist(process.argv.slice(2))
 
 if (command.help || (process.argv.length <= 2 && process.stdin.isTTY)) {
   // console.log(`\n${help.replace('__VERSION__', version)}\n`)
 } else if (command.version) {
-  console.log(`senzo v${version}`);
+  console.log(`senzo v${version}`)
 } else {
-  cli.default(command);
+  cli.default(command)
 }

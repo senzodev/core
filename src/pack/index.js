@@ -1,15 +1,11 @@
-import prompt from './prompt.js'
 import { logger } from '../utils/index.js'
 
-const init = () => {
-  let response = false
+const initProject = () => {
   try {
-    prompt()
-    response = true
+    return prompt()
   } catch (error) {
     logger('error', `Unable to initialise project with error: ${error}`)
   }
-  return true
 }
 
-export default init
+export default initProject

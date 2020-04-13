@@ -1,6 +1,11 @@
-import logger from './logger'
-import copyFolderRecursiveSync from './copyFolderRecursiveSync'
-import removeFolderRecursiveSync from './removeFolderRecursiveSync'
-import rollupDefault from './rollupDefault'
+import logger from './logger.js'
+import copyFolderRecursiveSync from './copyFolderRecursiveSync.js'
+import removeFolderRecursiveSync from './removeFolderRecursiveSync.js'
+import rollupDefault from './rollupDefault.js'
 
-export { logger, copyFolderRecursiveSync, removeFolderRecursiveSync, rollupDefault }
+export {
+  logger,
+  copyFolderRecursiveSync,
+  removeFolderRecursiveSync,
+  rollupDefault
+}

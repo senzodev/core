@@ -1,8 +1,8 @@
 import readline from 'readline'
 import { basename, join } from 'path'
 import chalk from 'chalk'
-import { logger } from '../utils'
-import prepare from './prepare'
+import { logger } from '../utils/index.js'
+import prepare from './prepare.js'
 
 const prompt = () => {
   try {
@@ -52,52 +52,54 @@ const prompt = () => {
     })
 
     rl.question(`Project Name (${currentDir}): `, answer => {
-        if (answer.length > 0) {
-            initOptions.name = answer
-        }
-        
-    
+      if (answer.length > 0) {
+        initOptions.name = answer
+      }
 
-    rl.question(`Source Code Location (${initOptions.functions}): `, answer => {
-        if (answer.length > 0) {
-            initOptions.functions = answer
-        }
-       
-  
-
-    rl.question(`Distribution Location (${initOptions.dist}): `, answer => {
-        if (answer.length > 0) {
-            initOptions.dist = answer
-        }
-        
-
-    
-    rl.question(`Configuration File Name (${configFile}): `, answer => {
-    if (answer.length > 0) {
-        configFile = answer
-       }
-      
-
-
-    rl.question(
-    `Do you want to create a project with this configuration (Y/n)? `,
+      rl.question(
+        `Source Code Location (${initOptions.functions}): `,
         answer => {
-        if (answer.length > 0) {
-            if ((answer === 'n') | (answer === 'N')) {
-            initOptions = null
-            } else {
-            prepare({ options: initOptions, configFile})
+          if (answer.length > 0) {
+            initOptions.functions = answer
+          }
+
+          rl.question(
+            `Distribution Location (${initOptions.dist}): `,
+            answer => {
+              if (answer.length > 0) {
+                initOptions.dist = answer
+              }
+
+              rl.question(
+                `Configuration File Name (${configFile}): `,
+                answer => {
+                  if (answer.length > 0) {
+                    configFile = answer
+                  }
+
+                  rl.question(
+                    `Do you want to create a project with this configuration (Y/n)? `,
+                    answer => {
+                      if (answer.length > 0) {
+                        if ((answer === 'n') | (answer === 'N')) {
+                          initOptions = null
+                        } else {
+                          prepare({ options: initOptions, configFile })
+                        }
+                      } else {
+                        prepare({ options: initOptions, configFile })
+                      }
+                      rl.close()
+                    }
+                  )
+                }
+              )
             }
-        } else {
-            prepare({ options: initOptions, configFile})
+          )
         }
-        rl.close()
+      )
     })
-})
-})
-})
-})
-    
+
     return { options: initOptions, configFile }
   } catch (error) {
     logger('error', `Initialisation aborted with errror: ${error}`)

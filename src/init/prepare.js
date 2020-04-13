@@ -1,36 +1,35 @@
-import { logger } from '../utils'
+import { logger } from '../utils/index.js'
 import { writeFileSync, existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
-import { validateConfig } from '../validation'
+import { validateConfig } from '../validation/index.js'
 import YAML from 'yaml'
 
 const prepare = ({ options, configFile }) => {
   try {
     const configValid = validateConfig(options)
     if (configValid) {
-        const { functions } = options
+      const { functions } = options
 
-        const functionsDir = join(process.cwd(), functions)
-        if (!existsSync(functionsDir)) {
-        mkdirSync(functionsDir, {recursive: true})
+      const functionsDir = join(process.cwd(), functions)
+      if (!existsSync(functionsDir)) {
+        mkdirSync(functionsDir, { recursive: true })
         logger('info', `init: Functions directory created`)
-        } else {
+      } else {
         logger('warning', `init: Functions directory exists`)
-        }
+      }
 
-        const fullConfig = join(process.cwd(), configFile)
-        if (!existsSync(fullConfig)) {
+      const fullConfig = join(process.cwd(), configFile)
+      if (!existsSync(fullConfig)) {
         writeFileSync(fullConfig, YAML.stringify(options))
-        } else {
+      } else {
         logger('error', `${fullConfig} already exists.`)
-        }
+      }
 
-        logger('info', `Project config and scaffolding created.`)
-        return true
+      logger('info', `Project config and scaffolding created.`)
+      return true
     } else {
-        return false
+      return false
     }
-    
   } catch (error) {
     logger('error', `init project error: ${error}`)
     return false

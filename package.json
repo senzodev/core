@@ -6,17 +6,15 @@
   "bin": {
     "senzo": "./bin/senzo.js"
   },
-  "files": [
-    "lib",
-    "bin"
-  ],
+  "files": ["lib", "bin"],
   "engines": {
     "node": ">=10.0"
   },
+  "type": "module",
   "scripts": {
     "build": "npm run build:clean && npm run build:js",
     "build:clean": "rm -rf lib",
-    "build:js": "babel src -d lib",
+    "build:js": "cp -r src lib",
     "prepare": "npm run build",
     "test": "ava"
   },
