@@ -5,11 +5,9 @@ import minimist from 'minimist'
 import cli from '../src/cli/index.js'
 import { readFileSync } from 'fs'
 import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
+import { getPath } from '../src/utils/index.js'
 
-const currPathname = new URL(import.meta.url)
-const currPath = fileURLToPath(currPathname)
-const currDir = dirname(currPath)
+const currDir = dirname(getPath(import.meta.url))
 
 const pkgFile = readFileSync(join(currDir, '../package.json'), 'utf8')
 

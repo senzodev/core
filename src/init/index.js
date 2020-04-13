@@ -16,14 +16,13 @@ const init = async flag => {
     let configFile = 'senzo.yml'
 
     if (flag) {
-      prepare({ options: initOptions, configFile })
+      response = prepare({ options: initOptions, configFile })
     } else {
       const promptResponse = await prompt(initOptions, configFile)
       if (promptResponse) {
-        prepare(promptResponse)
+        response = await prepare(promptResponse)
       }
     }
-    response = true
   } catch (error) {
     logger('error', `Unable to initialise project with error: ${error}`)
   }

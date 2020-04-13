@@ -1,12 +1,12 @@
 import { logger } from '../utils/index.js'
-import config from './config.js'
+import config from './config/index.js'
 import pack from '../pack/index.js'
 import init from '../init/index.js'
 import bundle from '../bundle/index.js'
 
 const cli = async args => {
   try {
-    const validCommands = ['pack', 'bundle', 'init']
+    const validCommands = ['pack', 'bundle', 'init', 'deploy']
     const command = args._[0] || null
 
     if (command) {
@@ -16,16 +16,22 @@ const cli = async args => {
           init(flag)
         } else {
           const configFile = args.config || args.c || 'senzo.yml'
-          const source = args.source || args.s || 'src/'
-          const distribution = args.dist || args.d || 'dist/'
-          const options = await config(configFile)
-
+          const source = args.source || args.s || false
+          const distribution = args.dist || args.d || false
+          const name = args.name || args.n || false
+          const options = await config(configFile, {
+            source,
+            distribution,
+            name
+          })
+          console.log(options)
           switch (command) {
             case 'bundle':
               bundle(options)
               break
             case 'pack':
-              pack(options)
+              const packBundle = args['no-bundle'] || args.nb || false
+              pack(options, packBundle)
               break
             case 'deploy':
               logger('info', 'Deployment not supported at this time')
