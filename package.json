@@ -2,14 +2,11 @@
   "name": "@senzo/core",
   "version": "0.0.1",
   "description": "Core Package for the Senzo System",
-  "main": "lib/index",
+  "main": "index",
   "bin": {
     "senzo": "./bin/senzo.js"
   },
-  "files": [
-    "src",
-    "bin"
-  ],
+  "files": ["src", "bin"],
   "engines": {
     "node": ">=13.0"
   },

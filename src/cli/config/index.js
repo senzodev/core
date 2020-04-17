@@ -2,7 +2,7 @@ import { validateConfig } from '../../validation/index.js'
 import getConfigPath from './getConfigPath.js'
 import { logger } from '../../utils/index.js'
 import { readFileSync } from 'fs'
-import { basename } from 'path'
+import { basename, join } from 'path'
 import YAML from 'yaml'
 
 const buildConfig = async (configFile, configOverride) => {
@@ -23,6 +23,8 @@ const buildConfig = async (configFile, configOverride) => {
       try {
         config = YAML.parse(configString)
         Object.assign(defaultConfig, config)
+        config.source = join(process.cwd(), config.source)
+        config.dist = join(process.cwd(), config.dist)
       } catch (error) {
         logger(
           'warning',
@@ -35,8 +37,8 @@ const buildConfig = async (configFile, configOverride) => {
         if (config.source != 'src/') {
           config = {
             name: currentDir,
-            source: 'src/',
-            dist: 'dist/'
+            source: join(process.cwd(), 'src/'),
+            dist: join(process.cwd(), 'dist/')
           }
         } else {
           config = false
@@ -45,8 +47,8 @@ const buildConfig = async (configFile, configOverride) => {
     } else {
       config = {
         name: currentDir,
-        source: 'src/',
-        dist: 'dist/'
+        source: join(process.cwd(), 'src/'),
+        dist: join(process.cwd(), 'dist/')
       }
     }
 

@@ -24,7 +24,7 @@ const cli = async args => {
             distribution,
             name
           })
-          console.log(options)
+          // console.log(options)
           switch (command) {
             case 'bundle':
               bundle(options)
