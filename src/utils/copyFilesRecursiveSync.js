@@ -6,7 +6,7 @@ import {
   readFileSync
 } from 'fs'
 import { join, basename } from 'path'
-import logger from './logger'
+import logger from './logger.js'
 
 const copyFileSync = (source, target) => {
   // if target is a directory a new file with the same name will be created

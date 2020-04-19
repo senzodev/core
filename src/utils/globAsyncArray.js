@@ -1,5 +1,5 @@
 import globAsync from './globAsync.js'
-import { join } from 'fs'
+import { join } from 'path'
 
 const globAsyncArray = async (rootDir, patternArray, options) => {
   let files = []
