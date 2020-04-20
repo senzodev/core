@@ -1,5 +1,6 @@
 import createManifest from './createManifest.js'
 import bundleFunction from './bundleFunction.js'
+import packFunction from './packFunction.js'
 import { logger, removeFolderRecursiveSync } from '../utils/index.js'
 import { mkdirSync } from 'fs'
 import copyFunction from './copyFunction.js'
@@ -7,7 +8,8 @@ import copyFunction from './copyFunction.js'
 const bundle = async options => {
   let response = false
   try {
-    const { name, source, dist, noBundle } = options
+    const { name, source, dist, noBundle, zip } = options
+    const zipFunction = typeof zip == 'undefined' ? true : zip
     const manifest = await createManifest({ source, name })
     const bundleSuccess = []
 
@@ -42,6 +44,16 @@ const bundle = async options => {
           logger(
             'warning',
             `bundle: Unable to bundle function ${name} at ${source} to ${dist}`
+          )
+        }
+      }
+
+      if (bundleSuccess.length > 0 && zipFunction) {
+        for (let i = 0; i < bundleSuccess.length; i++) {
+          logger('info', `pack: zipping '${bundleSuccess[i].name}'`)
+          bundleSuccess[i]['zip'] = await packFunction(
+            bundleSuccess[i].dist,
+            bundleSuccess[i].name
           )
         }
       }

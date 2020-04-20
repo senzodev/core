@@ -1,6 +1,5 @@
 import { logger } from '../utils/index.js'
 import config from './config/index.js'
-import pack from '../pack/index.js'
 import init from '../init/index.js'
 import bundle from '../bundle/index.js'
 
@@ -28,10 +27,6 @@ const cli = async args => {
           switch (command) {
             case 'bundle':
               bundle(options)
-              break
-            case 'pack':
-              const packBundle = args['no-bundle'] || args.nb || false
-              pack(options, packBundle)
               break
             case 'deploy':
               logger('info', 'Deployment not supported at this time')
