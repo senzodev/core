@@ -29,10 +29,6 @@ const cli = async args => {
             case 'bundle':
               bundle(options)
               break
-            case 'pack':
-              const packBundle = args['no-bundle'] || args.nb || false
-              pack(options, packBundle)
-              break
             case 'deploy':
               logger('info', 'Deployment not supported at this time')
               break

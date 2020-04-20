@@ -7,7 +7,7 @@ import getFiles from './getFiles.js'
 const createArchive = async (dist, name) => {
   let result = false
   try {
-    const normalizedSourceDir = normalize(dist)
+    const normalizedSourceDir = normalize(join(dist, name))
     const fileList = await getFiles(normalizedSourceDir)
 
     const archive = archiver('zip', {
