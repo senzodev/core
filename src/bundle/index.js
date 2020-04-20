@@ -50,6 +50,7 @@ const bundle = async options => {
 
       if (bundleSuccess.length > 0 && zipFunction) {
         for (let i = 0; i < bundleSuccess.length; i++) {
+          logger('info', `pack: zipping '${bundleSuccess[i].name}'`)
           bundleSuccess[i]['zip'] = await packFunction(
             bundleSuccess[i].dist,
             bundleSuccess[i].name

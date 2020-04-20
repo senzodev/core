@@ -1,6 +1,5 @@
 import { logger } from '../utils/index.js'
 import config from './config/index.js'
-import pack from '../pack/index.js'
 import init from '../init/index.js'
 import bundle from '../bundle/index.js'
 
