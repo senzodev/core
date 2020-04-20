@@ -29,10 +29,6 @@ export default async ({ name, dist, source }, rollupConfig) => {
   try {
     const output = join(dist, name)
 
-    if (removeFolderRecursiveSync(output)) {
-      mkdirSync(output)
-    }
-
     if (existsSync(source)) {
       // bundle
 

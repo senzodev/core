@@ -1,13 +1,13 @@
 import {
   logger,
-  removeFolderRecursiveSync,
   globAsync,
   globAsyncArray,
   createCopyArray,
-  copyFilesRecursiveSync
+  copyFilesRecursiveSync,
+  createIncludeFileArray
 } from '../utils/index.js'
-import { mkdirSync, existsSync } from 'fs'
-import { join, dirname } from 'path'
+import { existsSync } from 'fs'
+import { join } from 'path'
 
 export default async ({ name, dist, source, include, exclude }) => {
   //  console.log(output)
@@ -15,10 +15,6 @@ export default async ({ name, dist, source, include, exclude }) => {
   let response = false
   try {
     const output = join(dist, name)
-
-    if (removeFolderRecursiveSync(output)) {
-      mkdirSync(output)
-    }
 
     let copyArray = []
 
@@ -28,10 +24,10 @@ export default async ({ name, dist, source, include, exclude }) => {
         if (Array.isArray(include)) {
           includeSource = await globAsyncArray(source, include)
         } else {
-          const includeFullPath = join(dirname(source), include)
+          const includeFullPath = join(source, include)
           includeSource = await globAsync(includeFullPath)
         }
-        copyArray = createCopyArray(source, includeSource, dist)
+        copyArray = createCopyArray(source, includeSource, output)
         response = copyFilesRecursiveSync(copyArray)
       } else {
         if (exclude) {
@@ -39,11 +35,13 @@ export default async ({ name, dist, source, include, exclude }) => {
           if (Array.isArray(exclude)) {
             excludeSource = await globAsyncArray(source, exclude)
           } else {
-            const excludeFullPath = join(dirname(source), exclude)
+            const excludeFullPath = join(source, exclude)
             excludeSource = await globAsync(excludeFullPath)
           }
           const includeArray = createIncludeFileArray(source, excludeSource)
-          copyArray = createCopyArray(source, includeArray, dist)
+          if (includeArray.length > 0) {
+            copyArray = createCopyArray(source, includeArray, output)
+          }
         }
       }
       if (copyArray.length > 0) {
@@ -51,12 +49,15 @@ export default async ({ name, dist, source, include, exclude }) => {
         if (response) {
           logger('info', `copy: ${name} - ${copyArray.length} files copied `)
         }
+      } else {
+        logger('info', `copy: ${name} - No files to be copied`)
+        response = true
       }
     } else {
-      logger('warning', `bundle: Function location '${source}' does not exist`)
+      logger('warning', `copy: Function location '${source}' does not exist`)
     }
   } catch (error) {
-    logger('error', `bundle: ${error}`)
+    logger('error', `copyFunction: ${error}`)
     response = false
   }
   return response

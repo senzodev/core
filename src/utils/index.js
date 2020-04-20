@@ -5,7 +5,9 @@ import removeFolderRecursiveSync from './removeFolderRecursiveSync.js'
 import rollupDefault from './rollupDefault.js'
 import getPath from './getPath.js'
 import globAsync from './globAsync.js'
+import globAsyncArray from './globAsyncArray.js'
 import createCopyArray from './createCopyArray.js'
+import createIncludeFileArray from './createIncludeFileArray.js'
 
 export {
   logger,
@@ -16,5 +18,6 @@ export {
   getPath,
   globAsync,
   globAsyncArray,
-  createCopyArray
+  createCopyArray,
+  createIncludeFileArray
 }

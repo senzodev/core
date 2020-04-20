@@ -2,25 +2,40 @@ import createManifest from './createManifest.js'
 import bundleFunction from './bundleFunction.js'
 import { logger, removeFolderRecursiveSync } from '../utils/index.js'
 import { mkdirSync } from 'fs'
+import copyFunction from './copyFunction.js'
 
 const bundle = async options => {
   let response = false
   try {
-    const { name, source, dist } = options
+    const { name, source, dist, noBundle } = options
     const manifest = await createManifest({ source, name })
     const bundleSuccess = []
+
     if (removeFolderRecursiveSync(dist)) {
       mkdirSync(dist)
     }
 
     if (manifest.length > 0) {
       for (let i = 0; i < manifest.length; i++) {
+        // console.log(manifest[i])
         const bundleOptions = {
           name: manifest[i].name,
           source: manifest[i].source,
-          dist
+          dist,
+          include: manifest[i].include,
+          exclude: manifest[i].exclude
         }
-        const bundleResponse = await bundleFunction(bundleOptions)
+        let bundleResponse = false
+
+        if (noBundle) {
+          bundleResponse = await copyFunction(bundleOptions)
+        } else {
+          bundleResponse = await bundleFunction(bundleOptions)
+          if (bundleResponse) {
+            bundleResponse = await copyFunction(bundleOptions)
+          }
+        }
+
         if (bundleResponse) {
           bundleSuccess.push(bundleOptions)
         } else {

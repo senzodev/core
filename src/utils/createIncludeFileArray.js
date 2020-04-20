@@ -1,18 +1,19 @@
 import { lstatSync, readdirSync } from 'fs'
-import { dirname } from 'path'
+import { join } from 'path'
 
 const createIncludeFileArray = (source, excludeArray) => {
   let fileArray = []
 
-  const sourceDir = dirname(source)
-
-  const dirArray = readdirSync(sourceDir)
+  const dirArray = readdirSync(source)
   dirArray.forEach(file => {
-    if (lstatSync(file).isDirectory()) {
-      fileArray = fileArray.concat(createIncludeFileArray(file))
+    const curFile = join(source, file)
+    if (lstatSync(curFile).isDirectory()) {
+      fileArray = fileArray.concat(
+        createIncludeFileArray(curFile, excludeArray)
+      )
     } else {
-      if (!excludeArray.include(file)) {
-        fileArray.push(file)
+      if (!excludeArray.includes(curFile)) {
+        fileArray.push(curFile)
       }
     }
   })
