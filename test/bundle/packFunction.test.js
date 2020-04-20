@@ -1,6 +1,6 @@
 import test from 'ava'
 import { join } from 'path'
-import { existsSync } from 'fs'
+import { existsSync, unlinkSync } from 'fs'
 import packFunction from '../../src/bundle/packFunction.js'
 
 test('packFunction', async t => {
@@ -10,4 +10,5 @@ test('packFunction', async t => {
   const expectedZipLocation = join(functionDist, `${functionName}.zip`)
   t.true(packResult, 'packFunction completed successfully')
   t.true(existsSync(expectedZipLocation, 'zip created where expected'))
+  unlinkSync(expectedZipLocation)
 })
