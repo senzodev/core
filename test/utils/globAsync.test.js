@@ -1,20 +1,14 @@
+import test from 'ava'
 import globAsync from '../../src/utils/globAsync.js'
-import { join } from 'path'
 
-const testGlobPattern = async () => {
+
+test('test globAsync', async t => {
   const pattern = 'test/sample/**/*.js'
+  const expectedResult = [
+    'test/sample/src/anotherFunction/index.js',
+    'test/sample/src/function/index.js'
+  ]
+  const testValue = await globAsync(pattern)
+  t.deepEqual(testValue, expectedResult, 'message')
+})
 
-  return globAsync(pattern)
-}
-
-const testGlobPath = async () => {
-  const pattern = join(process.cwd(), 'test/sample/**/*.js')
-  return globAsync(pattern)
-}
-
-const testRunner = async testFunction => {
-  console.log(await testFunction())
-}
-
-testRunner(testGlobPattern)
-testRunner(testGlobPath)

@@ -1,5 +1,5 @@
 import { lstatSync, readdirSync } from 'fs'
-import { join, dirname } from 'path'
+import { join } from 'path'
 
 const createIncludeFileArray = (source, excludeArray) => {
   let fileArray = []
