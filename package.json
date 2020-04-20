@@ -6,10 +6,7 @@
   "bin": {
     "senzo": "./bin/senzo.js"
   },
-  "files": [
-    "src",
-    "bin"
-  ],
+  "files": ["src", "bin"],
   "engines": {
     "node": ">=13.0"
   },
@@ -19,7 +16,8 @@
     "build:clean": "rm -rf lib",
     "build:js": "cp -r src lib",
     "prepare": "npm run build",
-    "test": "ava"
+    "test": "ava",
+    "coverage": "nyc ava"
   },
   "repository": {
     "type": "git",
