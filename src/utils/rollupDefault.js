@@ -3,6 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import babel from 'rollup-plugin-babel'
+import terserMod from 'rollup-plugin-terser'
 
 const setResolve = async (resolveOptions, resolveDefault) => {
   if (resolveOptions) {
@@ -146,6 +147,8 @@ const bundleOptions = async (rollupOptions, input) => {
       warningOptions = await setWarning(rollupOptions.warning, warningOptions)
     }
 
+    const { terser } = terserMod
+
     const inputOptions = {
       input,
       external: externalOptions,
@@ -153,7 +156,8 @@ const bundleOptions = async (rollupOptions, input) => {
         resolve(resolveOptions),
         json(jsonOptions),
         commonjs(commonjsOptions),
-        babel(babelOptions)
+        babel(babelOptions),
+        terser()
       ],
       onwarn (warning, warn) {
         if (Array.isArray(warningOptions)) {
