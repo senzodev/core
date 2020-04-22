@@ -8,7 +8,7 @@ import copyFunction from './copyFunction.js'
 const bundle = async options => {
   let response = false
   try {
-    const { name, source, dist, noBundle, zip } = options
+    const { name, source, dist, noBundle, rollup, zip } = options
     const zipFunction = typeof zip == 'undefined' ? true : zip
     const manifest = await createManifest({ source, name })
     const bundleSuccess = []
@@ -32,7 +32,7 @@ const bundle = async options => {
         if (noBundle) {
           bundleResponse = await copyFunction(bundleOptions)
         } else {
-          bundleResponse = await bundleFunction(bundleOptions)
+          bundleResponse = await bundleFunction(bundleOptions, rollup)
           if (bundleResponse) {
             bundleResponse = await copyFunction(bundleOptions)
           }

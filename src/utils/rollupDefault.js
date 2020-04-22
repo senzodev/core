@@ -97,6 +97,14 @@ const setWarning = async (warningArray, warningDefault) => {
   }
 }
 
+const setTerser = terserOptions => {
+  if (terserOptions) {
+    return terserOptions
+  } else {
+    return {}
+  }
+}
+
 const bundleOptions = async (rollupOptions, input) => {
   try {
     let resolveOptions = {
@@ -131,6 +139,7 @@ const bundleOptions = async (rollupOptions, input) => {
       'zlib'
     ]
     let warningOptions = ['CIRCULAR_DEPENDENCY']
+    let terserOptions = {}
 
     if (rollupOptions) {
       resolveOptions = await setResolve(rollupOptions.resolve, resolveOptions)
@@ -145,6 +154,7 @@ const bundleOptions = async (rollupOptions, input) => {
         externalOptions
       )
       warningOptions = await setWarning(rollupOptions.warning, warningOptions)
+      terserOptions = await setTerser(rollupOptions.terser)
     }
 
     const { terser } = terserMod
@@ -157,7 +167,7 @@ const bundleOptions = async (rollupOptions, input) => {
         json(jsonOptions),
         commonjs(commonjsOptions),
         babel(babelOptions),
-        terser()
+        terser(terserOptions)
       ],
       onwarn (warning, warn) {
         if (Array.isArray(warningOptions)) {
