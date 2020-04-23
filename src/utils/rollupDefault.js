@@ -97,11 +97,19 @@ const setWarning = async (warningArray, warningDefault) => {
   }
 }
 
-const setTerser = terserOptions => {
+const setTerser = async (terserOptions, terserjsDefault) => {
   if (terserOptions) {
-    return terserOptions
+    if (typeof terserOptions === 'object') {
+      return Object.assign(terserjsDefault, terserOptions)
+    } else {
+      logger(
+        'warn',
+        'Terser Config: Terser options are not an object, using default.'
+      )
+      return terserOptions
+    }
   } else {
-    return {}
+    return terserOptions
   }
 }
 
@@ -154,7 +162,7 @@ const bundleOptions = async (rollupOptions, input) => {
         externalOptions
       )
       warningOptions = await setWarning(rollupOptions.warning, warningOptions)
-      terserOptions = await setTerser(rollupOptions.terser)
+      terserOptions = await setTerser(rollupOptions.terser, terserOptions)
     }
 
     const { terser } = terserMod
