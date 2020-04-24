@@ -1,11 +1,7 @@
 import { rollup } from 'rollup'
-import { mkdirSync, existsSync } from 'fs'
+import { existsSync } from 'fs'
 import { join } from 'path'
-import {
-  removeFolderRecursiveSync,
-  logger,
-  rollupDefault
-} from '../utils/index.js'
+import { logger, rollupDefault } from '../utils/index.js'
 
 async function build (inputOptions, outputOptions) {
   try {
