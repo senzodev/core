@@ -5,7 +5,7 @@ import {
   writeFileSync,
   readFileSync
 } from 'fs'
-import { join, basename } from 'path'
+import { join, basename, dirname } from 'path'
 import logger from './logger.js'
 
 const copyFileSync = (source, target) => {
