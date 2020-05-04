@@ -1,16 +1,21 @@
 import logger from './logger.js'
 
-const setpluginOptions = (pluginOptions, pluginDefault, pluginName) => {
+const setpluginOptions = (pluginOptions, pluginDefault) => {
   let response
   switch (typeof pluginOptions) {
     case 'undefined':
       response = pluginDefault
       break
     case 'boolean':
-      response = pluginOptions ? resolveDefault : false
+      response = pluginOptions ? pluginDefault : false
       break
     case 'object':
-      response = Object.assign(pluginDefault, pluginOptions)
+      if (pluginDefault) {
+        response = Object.assign(pluginDefault, pluginOptions)
+      } else {
+        response = pluginOptions
+      }
+
       break
     default:
       response = pluginDefault

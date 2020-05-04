@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import babel from 'rollup-plugin-babel'
 import terserMod from 'rollup-plugin-terser'
+import replace from '@rollup/plugin-replace'
 import pluginFactory from './rollupPluginFactory.js'
 
 const setArrayOptions = async (arrayOption, arrayDefault) => {
@@ -21,6 +22,7 @@ const setArrayOptions = async (arrayOption, arrayDefault) => {
 const bundleOptions = async (rollupOptions, input) => {
   try {
     const pluginOptions = {
+      replace: false,
       resolve: {
         mainFields: ['module', 'main'],
         extensions: ['.mjs', '.js', '.json'],
@@ -48,6 +50,7 @@ const bundleOptions = async (rollupOptions, input) => {
     const { terser } = terserMod
 
     const pluginFunctions = {
+      replace,
       resolve,
       commonjs,
       json,
