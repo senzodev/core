@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import babel from '@rollup/plugin-babel'
-import terserMod from 'rollup-plugin-terser'
+import { terser } from 'rollup-plugin-terser'
 import replace from '@rollup/plugin-replace'
 import pluginFactory from './rollupPluginFactory.js'
 
@@ -47,7 +47,6 @@ const bundleOptions = async (rollupOptions, input) => {
       },
       terser: {}
     }
-    const { terser } = terserMod
 
     const pluginFunctions = {
       replace,

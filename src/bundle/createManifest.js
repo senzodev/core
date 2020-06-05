@@ -2,7 +2,7 @@ import { existsSync, readdirSync } from 'fs'
 import { logger } from '../utils/index.js'
 import { join } from 'path'
 
-const createManifestArray = async ({ source, name, include, exclude }) => {
+const createManifestArray = ({ source, name, include, exclude }) => {
   const manifestArray = []
   try {
     if (existsSync(join(source, 'index.js'))) {
@@ -34,7 +34,7 @@ const createManifestArray = async ({ source, name, include, exclude }) => {
   return manifestArray
 }
 
-const createManifest = async ({ source, name }) => {
+const createManifest = ({ source, name }) => {
   let manifestArray = []
   try {
     if (Array.isArray(source)) {

@@ -28,8 +28,8 @@ const buildConfig = async (configFile, configOverride) => {
             return {
               name: item.name ? item.name : config.name,
               path: join(process.cwd(), item.path),
-              include: item.include,
-              exclude: item.exclude
+              include: item.include ? item.include : '**/*',
+              exclude: item.exclude ? item.exclude : '**/*.js'
             }
           })
         } else {
