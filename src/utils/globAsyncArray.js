@@ -6,7 +6,7 @@ const globAsyncArray = async (rootDir, patternArray, options) => {
 
   for (let i = 0; i < patternArray.length; i++) {
     const globPattern = join(rootDir, patternArray[i])
-    files = files.concat(await globAsync(globPattern))
+    files = files.concat(await globAsync(globPattern, options))
   }
 
   return files

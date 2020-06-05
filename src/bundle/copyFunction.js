@@ -11,7 +11,7 @@ import { join } from 'path'
 
 export default async ({ name, dist, source, include, exclude }) => {
   //  console.log(output)
-  // logger('info', `bundle: Copying function - ${name}`)
+  logger('info', `bundle: Copying function - ${name}`)
   let response = false
   try {
     const output = join(dist, name)
@@ -57,7 +57,11 @@ export default async ({ name, dist, source, include, exclude }) => {
       logger('warning', `copy: Function location '${source}' does not exist`)
     }
   } catch (error) {
-    logger('error', `copyFunction: ${error}`)
+    console.log(error)
+    logger(
+      'error',
+      `copyFunction: ${error.name} \n ${error.message} \n ${error.stack}`
+    )
     response = false
   }
   return response

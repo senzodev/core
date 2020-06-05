@@ -19,35 +19,24 @@ const copyFileSync = (source, target) => {
   writeFileSync(target, readFileSync(source))
 }
 
-const mkdirRecurse = targetDir => {
-  const parentDir = join(targetDir, '../')
-  if (existsSync(parentDir)) {
-    mkdirSync(targetDir)
-  } else {
-    if (parentDir == '/') {
-      logger('error', 'copyFiles: Unable to create directory.')
-    } else {
-      mkdirRecurse(parentDir)
-    }
-  }
-}
-
 // files = [{source: '/source/file', dest: '/destination/file'}]
 
 const copyFileRecursiveSync = files => {
   // copy
 
-  files.forEach(function (file) {
-    const { source, dest } = file
+  for (let i = 0; i < files.length; i++) {
+    const { source, dest } = files[i]
     const targetDir = dirname(dest)
     if (!existsSync(targetDir)) {
-      mkdirRecurse(targetDir)
+      mkdirSync(targetDir, { recursive: true })
     }
 
     if (existsSync(source)) {
-      copyFileSync(source, dest)
+      if (!lstatSync(source).isDirectory()) {
+        copyFileSync(source, dest)
+      }
     }
-  })
+  }
   return true
 }
 
