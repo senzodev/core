@@ -1,6 +1,6 @@
 {
   "name": "@senzo/core",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Core CLI for the Senzo System",
   "main": "index",
   "bin": {
