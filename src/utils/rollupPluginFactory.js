@@ -44,7 +44,14 @@ const pluginFactory = ({ pluginOptions, plugins, pluginFunctions }) => {
     if (pluginFunctions.hasOwnProperty(key)) {
       if (pluginOptions[key]) {
         const pluginFunction = pluginFunctions[key]
-        pluginArray.push(pluginFunction(pluginOptions[key]))
+        if (typeof pluginFunction === 'function') {
+          pluginArray.push(pluginFunction(pluginOptions[key]))
+        } else {
+          logger(
+            'warning',
+            `pluginFactory: ${key} does not reference a valid function`
+          )
+        }
       }
     }
   }

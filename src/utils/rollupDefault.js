@@ -1,11 +1,14 @@
 import logger from './logger.js'
-import resolve from '@rollup/plugin-node-resolve'
+import nodeResolve from '@rollup/plugin-node-resolve/dist/index.js'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
-import babel from '@rollup/plugin-babel'
+import babelModule from '@rollup/plugin-babel/dist/index.js'
 import { terser } from 'rollup-plugin-terser'
 import replace from '@rollup/plugin-replace'
 import pluginFactory from './rollupPluginFactory.js'
+
+const babel = babelModule.getBabelOutputPlugin
+const resolve = nodeResolve.nodeResolve
 
 const setArrayOptions = async (arrayOption, arrayDefault) => {
   if (arrayOption) {
@@ -57,7 +60,11 @@ const bundleOptions = async (rollupOptions, input) => {
       terser
     }
 
-    const { plugins } = rollupOptions
+    const plugins = rollupOptions
+      ? 'plugins' in rollupOptions
+        ? rollupOptions.plugins
+        : false
+      : false
 
     const pluginArray = pluginFactory({
       pluginOptions,
@@ -102,7 +109,10 @@ const bundleOptions = async (rollupOptions, input) => {
 
     return inputOptions
   } catch (error) {
-    logger('error', `rollupDefault: ${error}`)
+    logger(
+      'error',
+      `rollupDefault: ${error.name}\n${error.message}\n${error.stack}`
+    )
   }
 }
 
