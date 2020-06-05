@@ -23,7 +23,18 @@ const buildConfig = async (configFile, configOverride) => {
       try {
         config = YAML.parse(configString)
         Object.assign(defaultConfig, config)
-        config.source = join(process.cwd(), config.source)
+        if (Array.isArray(config.source)) {
+          config.source = config.source.map(item => {
+            return {
+              name: item.name ? item.name : config.name,
+              path: join(process.cwd(), item.path),
+              include: item.include,
+              exclude: item.exclude
+            }
+          })
+        } else {
+          config.source = join(process.cwd(), config.source)
+        }
         config.dist = join(process.cwd(), config.dist)
       } catch (error) {
         logger(

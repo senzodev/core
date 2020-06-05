@@ -5,9 +5,11 @@ const validateConfig = options => {
   let response = true
   try {
     const { source } = options
-    if (source) {
-      if (!existsSync(source)) {
-        throw new Error(`Source location '${source}' does not exist`)
+    if (!Array.isArray(source)) {
+      if (source) {
+        if (!existsSync(source)) {
+          throw new Error(`Source location '${source}' does not exist`)
+        }
       }
     }
   } catch (error) {
