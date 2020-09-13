@@ -4,7 +4,7 @@ import copyFunction from '../../src/bundle/copyFunction.js'
 const complexCopy = {
   source: './test/sample/src/function',
   name: 'testFunction',
-  include: ['node_modules/**/*', 'package.json'],
+  include: ['node_modules/**/*', 'package.json', '.test.config.file.js'],
   exclude: '**/*.js',
   dist: 'test/sample/dist'
 }
