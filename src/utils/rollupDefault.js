@@ -1,5 +1,5 @@
 import logger from './logger.js'
-import nodeResolve from '@rollup/plugin-node-resolve'
+import { nodeResolve } from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import babelModule from '@rollup/plugin-babel/dist/index.js'
@@ -8,7 +8,6 @@ import replace from '@rollup/plugin-replace'
 import pluginFactory from './rollupPluginFactory.js'
 
 const babel = babelModule.getBabelOutputPlugin
-const resolve = nodeResolve.nodeResolve
 
 const setArrayOptions = async (arrayOption, arrayDefault) => {
   if (arrayOption) {
@@ -26,7 +25,7 @@ const bundleOptions = async (rollupOptions, input) => {
   try {
     const pluginOptions = {
       replace: false,
-      resolve: {
+      nodeResolve: {
         mainFields: ['module', 'main'],
         extensions: ['.mjs', '.js', '.json'],
         preferBuiltins: true
@@ -53,7 +52,7 @@ const bundleOptions = async (rollupOptions, input) => {
 
     const pluginFunctions = {
       replace,
-      resolve,
+      nodeResolve,
       commonjs,
       json,
       babel,
