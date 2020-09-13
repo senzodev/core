@@ -2,7 +2,7 @@ import test from 'ava'
 import copyFunction from '../../src/bundle/copyFunction.js'
 
 const complexCopy = {
-  source: './test/sample/src/function',
+  source: 'test/sample/src/function',
   name: 'testFunction',
   include: ['node_modules/**/*', 'package.json', '.test.config.file.js'],
   exclude: '**/*.js',
@@ -10,7 +10,7 @@ const complexCopy = {
 }
 
 const simpleCopy = {
-  source: './test/sample/src/function',
+  source: 'test/sample/src/function',
   name: 'testFunction2',
   include: '**/*',
   exclude: '**/*.js',
