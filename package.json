@@ -38,7 +38,7 @@
   "homepage": "https://github.com/senzodev/core#readme",
   "devDependencies": {
     "ava": "^3.7.1",
-    "eslint": "^6.8.0",
+    "eslint": "^7.9.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -54,16 +54,16 @@
     "@babel/plugin-transform-destructuring": "^7.10.1",
     "@babel/preset-env": "^7.10.2",
     "@rollup/plugin-babel": "^5.0.3",
-    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-commonjs": "^15.0.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-node-resolve": "^9.0.0",
     "@rollup/plugin-replace": "^2.3.3",
-    "archiver": "^3.1.1",
+    "archiver": "^5.0.2",
     "chalk": "^4.0.0",
     "glob": "^7.1.6",
     "minimist": "^1.2.5",
     "rollup": "^2.13.1",
-    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-terser": "^7.0.2",
     "yaml": "^1.10.0"
   }
 }

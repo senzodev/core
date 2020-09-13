@@ -1,5 +1,5 @@
 import logger from './logger.js'
-import nodeResolve from '@rollup/plugin-node-resolve/dist/index.js'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import json from '@rollup/plugin-json'
 import babelModule from '@rollup/plugin-babel/dist/index.js'

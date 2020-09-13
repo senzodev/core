@@ -15,7 +15,7 @@ const copyFileSync = (source, target) => {
       target = join(target, basename(source))
     }
   }
-
+  
   writeFileSync(target, readFileSync(source))
 }
 

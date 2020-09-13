@@ -24,7 +24,7 @@ export default async ({ name, dist, source }, rollupConfig) => {
   let response = false
   try {
     const output = join(dist, name)
-
+    logger('info', `bundle: ${output}`)
     if (existsSync(source)) {
       // bundle
 

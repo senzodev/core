@@ -5,7 +5,11 @@ import { join } from 'path'
 
 test.beforeEach(async t => {
   // delete senzo.yml file before each test
-  unlinkSync(join(process.cwd(), 'senzo.yml'))
+  try {
+    unlinkSync(join(process.cwd(), 'senzo.yml'))
+  } catch (error) {
+    // do nothing
+  }
 })
 
 test('initDefault', async t => {
